@@ -1,0 +1,87 @@
+<div class="container" ng-app="sortApp" ng-controller="mainController">
+  <div class="alert alert-info">
+    <p>Sort Type: {{ sortType }}</p>
+    <p>Sort Reverse: {{ sortReverse }}</p>
+    <p>Search Query: {{ search }}</p>
+  </div>
+    
+  <form>
+    <div class="form-group">
+      
+        <input type="text" class="form-control" placeholder="Search" ng-model="searchEmployee">
+      </div>      
+    </div>
+  </form>
+  
+  <table class="table table-bordered table-striped">
+    
+    <thead>
+      <tr>
+        <td>
+          <a href="#" ng-click="sortType = 'Name'; sortReverse = !sortReverse">
+            Name 
+            <span ng-show="sortType == 'Name' && !sortReverse" class="caret-down"></span>
+            <span ng-show="sortType == 'Name' && sortReverse" class="caret-up"></span>
+          </a>
+        </td>
+        <td>
+          <a href="#" ng-click="sortType = 'DoBIH Number'; sortReverse = !sortReverse">
+          DoIB Number
+            <span ng-show="sortType == 'DoBIH Number' && !sortReverse" class="caret-down"></span>
+            <span ng-show="sortType == 'DoBIH Number' && sortReverse" class="caret-up"></span>
+          </a>
+        </td>
+        <td>
+          <a href="#" ng-click="sortType = 'Height (ft)'; sortReverse = !sortReverse">
+          Height (ft) 
+            <span ng-show="sortType == 'Height (ft)' && !sortReverse" class="caret-down"></span>
+            <span ng-show="sortType == 'Height (ft)' && sortReverse" class="caret-up"></span>
+          </a>
+        </td>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <tr ng-repeat="emp in employee | orderBy:sortType:sortReverse | filter:searchEmployee">
+        <td>{{ emp.Name }}</td>
+        <td>{{ emp.DoBIH Number }}</td>
+        <td>{{ emp.Height (ft) }}</td>
+      </tr>
+    </tbody>
+    
+  </table>
+  
+  
+</div>
+
+/*
+  were using Bootstrap and Font Awesome
+  https://bootstrapcdn.com
+*/
+
+body { padding-top:50px; }
+
+
+<script>
+angular
+  .module("sortApp", [])
+
+  .controller("mainController", function ($scope) {
+    $scope.sortType = "name"; // set the default sort type
+    $scope.sortReverse = false; // set the default sort order
+    $scope.searchEmployee = ""; // set the default search/filter term
+
+    // create the list of employees
+    $scope.employee = [
+      { 'Name': "Ben Chonzie", 'DoIB Number': "1", 'Height (ft)': 3054 },
+      { 'Name': "Ben Vorlich", 'DoIB Number': "17", 'Height (ft)': 3232 },
+      { 'Name': "Stuc a' Chroin",'DoIB Number': "18", 'Height (ft)': 3199 },
+      { 'Name': "Ben Lomond", 'DoIB Number': "32", 'Height (ft)': 3196 }
+    ];
+  });
+</script>
+
+
+
+
+
